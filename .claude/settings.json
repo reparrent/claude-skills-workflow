@@ -1,0 +1,15 @@
+{
+  "project_name": "claude-skills-workflow",
+  "project_type": "meta-project (skills & automation system)",
+  "created": "2026-06-24",
+  "location": "/Volumes/REP/projects/Claude/claude-skills-workflow/",
+  "memory_enabled": true,
+  "skills_created": [
+    "project-status",
+    "git-checkin",
+    "social-post-blotato",
+    "create-project"
+  ],
+  "routine_created": "project-workflow",
+  "description": "Comprehensive automation system for Claude projects: captures project status from conversation, commits code with smart messages, and publishes to social media. Also includes project scaffolding skill and memory system."
+}
