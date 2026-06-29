@@ -1,65 +1,51 @@
 # Project Status Report
-**Date:** 2026-06-24 | **Project:** Claude Skills & Workflow Automation
+**Date:** 2026-06-28 | **Project:** Claude Skills & Workflow Automation
 
 ## Executive Summary
-Successfully designed and created three interconnected Claude skills that automate the end-of-session workflow: capturing project status from conversation, committing changes with smart messages, and publishing accomplishments to social media. Also built an on-demand routine to orchestrate the three skills sequentially. All skills are conversation-first and user-driven.
+Extended the church-bulletin-extractor skill to support a second input mode: vacation coverage memos sent by music director Andi Smith (~3x/yr). Used a scanned PDF memo as a real-world test case, produced a formatted 3-page PDF song report (one page per service date), updated the skill's SKILL.md with full Mode 2 documentation, and versioned it into src/skills/ for git backup.
 
 ## Accomplishments This Session
-- **Created project-status skill** — Reads conversation thread, extracts milestones and accomplishments, generates comprehensive Markdown status reports with metrics and next steps
-- **Created git-checkin skill** — Auto-detects file changes, reads project status to understand scope, generates conventional commit messages (feat/fix/test/docs/refactor), safely handles sensitive files, commits and pushes to current branch
-- **Created social-post-blotato skill** — Extracts highlights from project status, crafts platform-specific posts (LinkedIn professional, Facebook conversational, Instagram visual), auto-generates hashtags, handles images, publishes via Blotato
-- **Established workflow architecture** — Conversation → Project Status → Git Check-in → Social Posts (each feeds into the next)
-- **Built project-workflow routine** — On-demand orchestration of all three skills with user approval gates at each step
-- **Created create-project skill** — Scaffolds new projects on NAS with standardized directory structure
-- **Saved setup to memory** — Documented skills, routine, and workflow for future reference
-- **Established standardized project structure** — All projects now follow consistent organization on NAS at /Volumes/REP/projects/Claude/
-- **Versioned skills in project** — Copied all four skill SKILL.md files into src/skills/ for git version control and backup
+- **Processed real-world vacation memo (Mode 2)** — Read a scanned 2-page PDF from Andi Smith (pianomama64@gmail.com) listing songs for July 19, July 26, and August 2, 2026. Extracted all hymns, sources, and page numbers visually (pdfplumber not used on scans)
+- **Generated 3-page PDF report** — `Andi_Smith_Vacation_Songs.pdf` with one table per service date, page breaks between dates, page numbers, blue header, alternating row colors, and gridlines
+- **Defined new formatting rules** — "Andi Smith" composed items (Sanctus, Lord's Prayer, Fraction Anthem) treated as indented liturgical items; Memorial Acclamation S-136 also indented per S- rule; Prelude included as blank row
+- **Inferred liturgical color** — All three dates are Ordinary Time (Pentecost 8-10 / Proper 11-13) → Green, since memo did not state color explicitly
+- **Updated church-bulletin-extractor SKILL.md (V3)** — Documented Mode 1 (bulletin PDF) vs Mode 2 (vacation memo/scanned PDF), "Andi Smith" item handling, liturgical color inference table, page-break-per-date output, page numbering, shorthand decoding, and reference to working Python script
+- **Added changelog section to SKILL.md** — V3 entry dated June 28, 2026; V1/V2 placeholder; HTML comment instructs future editors to add at top
+- **Restored proper YAML front matter** — Corrected `---` fencing after manual edits disrupted it
+- **Versioned skill into src/skills/** — Added `church-bulletin-extractor.SKILL.md` to match project convention
 
 ## In Progress
-- Testing the workflow end-to-end using this meta-project as the test case
-- Running full project-workflow routine validation
+- Nothing outstanding; session goals fully met
 
 ## Blockers & Challenges
-- None encountered; smooth implementation
-- All skills designed to be conversation-first (not git-dependent), which aligns better with actual development workflow
-- User realized this meta-project is a perfect test case since skills are in known locations
+- Scanned PDF produced two identical pages — used visual reading on page 1 only
+- YAML front matter was stripped during manual editing; restored correctly
+- Skill file is read-only in Cowork plugin cache — updated copy must be manually installed via Settings → Capabilities
 
 ## Key Learnings & Insights
-- **Conversation is the source of truth** — Project status should extract what was discussed/decided, not just git history
-- **Workflow sequencing matters** — Each skill depends on output of previous (status feeds commit, commit+status feeds social posts)
-- **User approval gates are essential** — Multi-step workflows need clear handoff points for user control
-- **Skills feed downstream workflows** — Designing skills as modular components that chain together is more powerful than standalone tools
-- **Meta-project as test case** — Using the skill-creation effort as test input validates the system with real data
-- **Outputs are distributed** — Status, commits, and posts spread naturally across the tree; no single "output" location needed
+- **Skill reuse over custom programs** — The existing reportlab PDF output was fully reusable; only the input path changed. No new program interface was needed
+- **Visual reading beats OCR on scans** — Claude reading the scanned PDF visually was faster and more accurate than attempting pdfplumber text extraction
+- **Vacation memos recur ~3x/yr** — Advent/Christmas, Lent/Easter, summer. Skill now handles all three seasons
+- **YAML front matter is load-critical** — Must be the very first content in the file with nothing preceding the opening `---`
+- **Changelog placement** — Version notes belong in the Markdown body after the closing `---`, not before the opening one
 
 ## Metrics & Impact
-- **Skills created:** 4 (project-status, git-checkin, social-post-blotato, create-project)
-- **Routine created:** 1 (project-workflow, on-demand)
-- **Files generated:** ~400 lines of SKILL.md documentation across four skills
-- **Memory saved:** project_workflow_setup.md, project_structure.md
-- **Project structure:** Standardized directory layout established and documented
-- **Workflow automation:** Reduces end-of-session overhead by consolidating status → commit → share into one guided flow
+- **New input mode documented:** 1 (Mode 2: vacation memo / scanned PDF)
+- **Service dates processed:** 3 (July 19, July 26, August 2, 2026)
+- **Songs extracted:** 36 entries across 3 tables
+- **PDF pages generated:** 3 (one per service date)
+- **SKILL.md version:** V3 (from V2)
+- **Skills versioned in src/skills/:** 5 (added church-bulletin-extractor)
 
 ## Next Steps
-1. ✅ Finish running full project-workflow routine on this meta-project
-2. ✅ Verify all three skills execute in sequence correctly
-3. Consolidate any existing scattered Claude projects into standardized structure
-4. Test routine on a new real-world project to validate in production
-5. Share accomplishments on social media via the routine
+1. Install updated church-bulletin-extractor SKILL.md via Settings → Capabilities in Cowork
+2. Next memo expected Advent/Christmas season — skill ready to handle it
+3. Consider adding Gmail connector path to Mode 2 if future memos arrive via email and are accessible
 
 ## Technical Notes
-- **Skills created (native locations in ~/.claude/custom-skills/):** 
-  - project-status/SKILL.md
-  - git-checkin/SKILL.md
-  - social-post-blotato/SKILL.md
-  - create-project/SKILL.md
-- **Skills versioned in project (src/skills/):**
-  - src/skills/project-status.SKILL.md (for git version control)
-  - src/skills/git-checkin.SKILL.md (for git version control)
-  - src/skills/social-post-blotato.SKILL.md (for git version control)
-  - src/skills/create-project.SKILL.md (for git version control)
-- **Routine created:** ~/.claude/scheduled-tasks/project-workflow/SKILL.md
-- **Memory saved:** ~/.claude/projects/-Users-rossparrent/memory/{project_workflow_setup.md, project_structure.md}
-- **Project directory:** /Volumes/REP/projects/Claude/claude-skills-workflow/
-- **Testing status:** Skills included in project; ready for git commit and version control
-- **Deployment readiness:** All skills, routine, and documentation ready for production use
+- **Output file:** `Andi_Smith_Vacation_Songs.pdf` (in outputs folder)
+- **Reference script:** `outputs/generate_bulletin_report.py` — Mode 2 reference implementation
+- **Skill versioned:** `src/skills/church-bulletin-extractor.SKILL.md`
+- **Skill native location:** Cowork plugin cache (read-only); install manually via Settings → Capabilities
+- **Python dependencies:** reportlab (already installed in sandbox)
+- **Testing status:** Mode 2 proven with real memo — July/August 2026 summer series
