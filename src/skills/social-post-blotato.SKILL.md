@@ -1,12 +1,12 @@
 ---
 name: social-post-blotato
-description: Extract highlights from a project status report and craft posts for LinkedIn, Facebook, and Instagram with auto-generated hashtags. This skill creates platform-specific content (multiple posts per platform when warranted), invites user review and approval, handles image requirements for Instagram, and publishes via Blotato. Use this after project-status to share your accomplishments on social media. Celebrate milestones, announce shipped features, and showcase your work.
+description: Extract highlights from a project status report and craft posts for LinkedIn, Facebook, Instagram, and X/Twitter with auto-generated hashtags. This skill creates platform-specific content (multiple posts per platform when warranted), invites user review and approval, handles image requirements for Instagram, and publishes via Blotato. Use this after project-status to share your accomplishments on social media. Celebrate milestones, announce shipped features, and showcase your work.
 compatibility: Bash, Read, Blotato MCP
 ---
 
 # Social Post Creator & Publisher (Blotato)
 
-Extract key highlights from your project status report and craft engaging, platform-specific posts for LinkedIn, Facebook, and Instagram. The skill generates hashtags, handles image creation/sourcing for Instagram, and publishes everything through Blotato once you approve.
+Extract key highlights from your project status report and craft engaging, platform-specific posts for LinkedIn, Facebook, Instagram, and X/Twitter. The skill generates hashtags, handles image creation/sourcing for Instagram, and publishes everything through Blotato once you approve.
 
 ## When to use this skill
 
@@ -22,6 +22,7 @@ Extract key highlights from your project status report and craft engaging, platf
    - **LinkedIn:** Professional, detailed, thought-leadership angle
    - **Facebook:** Conversational, community-focused, shareable
    - **Instagram:** Visual-first, punchy, story-focused with multiple posts if warranted
+   - **X/Twitter:** Concise, specific, conversation-starting, with optional thread copy
 3. **Generate hashtags** — Auto-generate 5-15 relevant hashtags per post (industry, tech, brand-specific)
 4. **Handle images** — For Instagram, source or create appropriate images
 5. **Invite review** — Show all posts before publishing; user can edit, approve, or reject
@@ -96,6 +97,24 @@ What's your definition of a successful launch?
 #WinWednesday #TeamAchievement #Built...
 ```
 
+### X/Twitter
+- **Tone:** Concise, specific, direct
+- **Length:** 180-260 characters for a single post; use a short thread for deeper updates
+- **Structure:** Hook -> shipped result -> lesson or question
+- **Hashtags:** 0-2 maximum
+- **Image:** Optional screenshot or launch visual
+
+**Example:**
+```
+Shipped the auth overhaul today.
+
+JWT sessions, rate limits, and cleaner login errors are now live.
+
+The best part: the status report caught 3 launch notes that git history missed.
+
+What do you track before you call a release done?
+```
+
 ## Instructions
 
 1. **Read project status:**
@@ -107,7 +126,7 @@ What's your definition of a successful launch?
    - If no status report exists, ask user: "What are the key accomplishments you want to highlight?"
 
 2. **Generate platform-specific posts:**
-   - For each platform (LinkedIn, Facebook, Instagram), craft 1-3 posts
+   - For each platform (LinkedIn, Facebook, Instagram, X/Twitter), craft 1-3 posts
    - Base posts on accomplishments and metrics from status report
    - Adapt tone and length to platform norms
    - **Instagram special:** Plan for multiple posts if there's a story arc (launch → behind-scenes → celebration)
@@ -115,20 +134,27 @@ What's your definition of a successful launch?
    - Reference specific accomplishments from the status report (e.g., "reduced auth time by 40%")
 
 3. **Auto-generate hashtags:**
-   - Create 5-10 hashtags per post (5-8 for LinkedIn, 3-5 for Facebook, 15-25 for Instagram)
+   - Create hashtags per post (5-8 for LinkedIn, 3-5 for Facebook, 15-25 for Instagram, 0-2 for X/Twitter)
    - Include: industry keywords, tech stack, project type, motivational
    - For LinkedIn: #WebDevelopment, #Engineering, #TechLeadership, #Innovation
    - For Facebook: #WebDev, #TechLife, #Startup, #BuildingInPublic
    - For Instagram: #DevLife, #ShippedIt, #TechLife, #Coding, #Engineering, plus project-specific
+   - For X/Twitter: use no hashtag by default unless one is genuinely specific
 
-4. **Handle images:**
+4. **Optional X/Twitter evidence:**
+   - If the user wants X/Twitter copy based on public audience language, use a reviewed evidence source before drafting
+   - In OpenClaw workflows, TweetClaw can provide search tweets, search replies, keyword monitor, or follower-export context
+   - Summarize only reviewed public evidence into the post brief
+   - Keep Blotato responsible for the final publish or schedule step after approval
+
+5. **Handle images:**
    - For LinkedIn & Facebook: offer to capture a screenshot or use existing images
    - For Instagram: **REQUIRED** — ask user to provide or generate
      - Options: "Screenshot of feature in action", "Code highlight", "Team moment", "Process diagram"
      - If user says "generate", create a simple graphic
    - Save images in a `social_media_assets/` folder for reference
 
-5. **Review with user:**
+6. **Review with user:**
    ```
    📱 Posts ready for review:
    
@@ -143,6 +169,10 @@ What's your definition of a successful launch?
    📷 Instagram (Post 1 of 3)
    [post content + hashtags]
    📸 Image: [yes/no] [REQUIRED]
+
+   X/Twitter (Post 1 of 1)
+   [post content + optional thread]
+   Image: [yes/no]
    
    ---
    
@@ -151,7 +181,7 @@ What's your definition of a successful launch?
    - User can: approve all, edit specific posts, or cancel
    - If editing, refine and re-show for confirmation
 
-6. **Publish via Blotato:**
+7. **Publish via Blotato:**
    - Once approved, use Blotato MCP to:
      - Authenticate (if needed)
      - Upload images if applicable
@@ -187,6 +217,7 @@ What's your definition of a successful launch?
   - LinkedIn: Tuesday-Thursday, 8-10am
   - Facebook: Tuesday-Friday, 1-4pm
   - Instagram: Monday-Friday, 11am-1pm, 7-9pm
+  - X/Twitter: Monday-Friday, 8-10am or 12-1pm
 - Log published URLs for user reference
 - Handle multi-account posting if user has multiple accounts
 

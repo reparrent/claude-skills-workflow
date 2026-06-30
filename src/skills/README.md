@@ -41,7 +41,7 @@ Reads project status, auto-detects file changes, generates smart conventional co
 **Usage:** `git-checkin` skill or `/git-checkin` command
 
 ### 3. social-post-blotato.SKILL.md
-Extracts highlights from project status, crafts platform-specific posts (LinkedIn/Facebook/Instagram), auto-generates hashtags, publishes via Blotato.
+Extracts highlights from project status, crafts platform-specific posts (LinkedIn/Facebook/Instagram/X), auto-generates hashtags, publishes via Blotato.
 
 **Usage:** `social-post-blotato` skill or `/social-post-blotato` command
 
